@@ -1,0 +1,135 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[top=17mm,bottom=19mm,left=22mm,right=22mm]{geometry}
+\usepackage{fontspec,xeCJK,amsmath,amssymb,booktabs,xcolor,hyperref}
+\setmainfont{TeX Gyre Pagella}
+\setCJKmainfont[BoldFont=Dengb.ttf]{Deng.ttf}
+\definecolor{ink}{HTML}{182C36}\definecolor{accent}{HTML}{1D5F69}\definecolor{rulecol}{HTML}{AFC8CA}
+\hypersetup{colorlinks=true,urlcolor=accent,pdftitle={无限群的左右商集差},pdfauthor={BI1XLN and GPT-6.2 Astra}}
+\setlength{\parindent}{0pt}\setlength{\parskip}{6pt}\linespread{1.15}
+\newcommand{\banner}[1]{{\small\color{accent}\bfseries 群论\hfill #1}\par\vspace{-3pt}{\color{rulecol}\rule{\linewidth}{.7pt}}\par}
+\newcommand{\head}[1]{\par\vspace{2pt}{\large\bfseries\color{accent}#1}\par}
+\newcommand{\dd}{\Delta}
+\begin{document}\color{ink}
+\banner{研究笔记 · 2026 年 11 月 26 日}
+{\fontsize{24}{31}\selectfont\bfseries 无限群的左右商集差}\par
+{\large 对 Duvivier 等人第 5 问的一个证明}\par
+{\small BI1XLN \enspace 与 \enspace GPT-6.2 Astra}
+
+\head{问题}
+在群 $G$ 里选有限子集 $A$。同样两个元素，先取逆再相乘的方向不同，得到两种商集。记
+\[
+ R(A)=AA^{-1},\qquad L(A)=A^{-1}A,\qquad
+ \dd(A)=|R(A)|-|L(A)|,\qquad f_n(G)=\sup_{|A|\le n}\dd(A).
+\]
+因为 $\dd(A^{-1})=-\dd(A)$，以 $|\dd(A)|$ 替换 $\dd(A)$ 得到同一个 $f_n$。Duvivier 等人在 \emph{Integers} 26A (2026), A8，第 14 页第 5 问中询问哪些群满足 $f_n(G)\to\infty$。
+
+\head{定理}
+对任意无限群 $G$，只要某个有限子集的左右商集大小不同，就存在常数 $\eta_G>0$，使得一切充分大的 $n$ 都有
+\[
+                 \boxed{\ \eta_G n^2\ \le\ f_n(G)\ \le\ n^2.\ }
+\]
+其余无限群恒有 $f_n(G)=0$。结合 Herzog、Kaplan、Longobardi 与 Maj 的分类定理，第 5 问的答案为：\textbf{所有无限群中，除阿贝尔群和 Hamilton 型 $2$-群外，全部满足 $f_n(G)\to\infty$。} 后一类非阿贝尔群的形式为 $Q_8\times E$，其中 $E$ 是初等阿贝尔 $2$-群。有限群显然满足 $f_n(G)\le |G|$。
+
+\head{证明为什么分成两种情形}
+若一个元素 $g$ 有无穷多个共轭元，可以把二元集合 $\{1,g\}$ 搬到许多位置。每一块对左商集的内部贡献相同，对右商集的内部贡献却各不相同。难点是控制不同块之间的商。第 2 页用无限 Ramsey 定理把它们的贡献精确地写成二次项。第 3 页证明这个二次项的系数一定非零。
+
+若每个元素的共轭类都有限，则可以复制一个已知失衡集合，选取适当的平移，使每对副本都贡献同样的差。上界 $n^2$ 直接来自有序对的总数。两部分都适用于任意基数的无限群。
+
+\head{一个算得出的例子}
+在以 $g,x_1,x_2,\ldots$ 为自由生成元的自由群中，取 $A=\bigcup_{i=1}^k\{x_i,x_ig\}$。由既约词唯一性，块间每一有序对给出三个不同右商、四个不同左商。加上块内的商得到
+\[
+ |R(A)|=3k(k-1)+2k+1,\qquad |L(A)|=4k(k-1)+3.
+\]
+以下证明的要点是，即使一般群有额外的关系，也仍能控制不同块产生的重复。
+
+\newpage
+\banner{证明 · 存在无限共轭类}
+\head{一、挑出商的碰撞规律一致的二元块}
+设 $g$ 的共轭类无限。选一列互异元素 $x_i$，使 $c_i=x_i g x_i^{-1}$ 模取逆两两不同，即 $c_i\ne c_j^{\pm1}$（$i\ne j$）。这是可行的，因为每个逆元对至多含两个元素。记 $H=\{1,g\}$、$A_i=x_iH$、$a=|\{g,g^{-1}\}|\in\{1,2\}$。
+
+右侧的跨块商都形如 $x_i u v^{-1}x_j^{-1}$，左侧都形如 $u^{-1}x_i^{-1}x_j v$，其中 $u,v\in H$、$i\ne j$。在每个这样的表达式中，两个不同的索引都只出现一次。块内商是同样两类表达式取 $i=j$ 得到的值。
+
+对 $d=1,2,3,4$ 依次使用无限 Ramsey 定理。给每组 $d$ 个递增索引着色，颜色记录：以这些索引代入以上表达式后，同侧任意两式是否相等。模板只有有限多个，颜色也有限。四次取无限子列后，每一类比较的真值都只依赖于索引的相对次序和重复方式。重新编号这条子列。
+
+\textbf{分离引理。} 在同一侧，使用不同无序索引对的两个跨块商永远不相等。跨块商与任何块内商也不相等。
+
+\textit{证明。} 在第一种比较中，从两组索引的对称差里选一个索引；在第二种比较中，从跨块的两个索引中选一个异于块内索引的。被选中的索引只在等式一边出现一次。若该模式的等式为真，可先挑一组间隔足够大的索引，固定其他各项，在保持次序的条件下给这个索引两种不同的取值。齐性要求两个等式都成立。固定其他因子后，该边的形式为 $b x_i^{\pm1}c$，对 $x_i$ 单射，矛盾。$\square$
+
+\head{二、把差值写成一个精确的多项式}
+取 $B_k=\bigcup_{i=1}^k A_i$。齐性保证，对每个无序对 $\{i,j\}$，合计两个取商方向后，该对贡献的不同右商数为同一个整数 $r$，左商数为同一个整数 $\ell$。引理保证不同对之间，以及与全部块内商之间，均可直接相加。
+
+左侧全部块内商是固定的 $\{1,g,g^{-1}\}$。右侧全部块内商是 $\{1\}\cup\bigcup_{i=1}^k\{c_i,c_i^{-1}\}$，其大小为 $1+ak$。所以
+\[
+ \boxed{\quad \dd(B_k)=a(k-1)+(r-\ell)\binom{k}{2}.\quad} \tag{1}
+\]
+式 (1) 已经排除有界，因为 $a>0$。甚至 $k=2,3$ 都不可能同时给零，所以这类群总有至多六个元素的失衡子集。要得到最优增长阶，还需排除 $r=\ell$，这正是下一步。
+
+\newpage
+\banner{证明 · 跨块的二次项不为零}
+\head{三、数清两个方向的重复}
+固定 $i<j$，令 $z=x_i^{-1}x_j$，$K=HH^{-1}$。由共轭元的选取，
+$zgz^{-1}\notin\{g,g^{-1}\}$。同时把两个方向的右商共轭后，它们是
+$zK$ 与 $Kz^{-1}$。左商的两个方向分别是 $H^{-1}zH$ 与 $H^{-1}z^{-1}H$。每个左侧方向各含四个不同元素：若 $g^{-p}zg^q=g^{-p'}zg^{q'}$，$p,p',q,q'\in\{0,1\}$，则除非 $p=p',q=q'$，否则 $z$ 把 $g$ 共轭为 $g$ 或 $g^{-1}$，矛盾。
+
+\textbf{情形一：$g^2\ne1$。} $K=\{g^{-1},1,g\}$ 有三个元素。记
+\[
+ T_z=\{(u,v)\in\{-1,0,1\}^2:z^{-1}=g^uzg^v\}.
+\]
+由于每个方向的枚举都无重复，$zK$ 与 $Kz^{-1}$ 的交有 $|T_z|$ 个元素，故 $r=6-|T_z|$。两个左侧方向重合，等价于
+\[
+  g^{-p}zg^q=g^{-p'}z^{-1}g^{q'}
+  \quad\Longleftrightarrow\quad (p'-p,q-q')\in T_z .
+\]
+得到相同差 $(u,v)$ 的下标选择有 $(2-|u|)(2-|v|)$ 种；不同选择对应不同的重合元素。因此
+\[
+ \ell=8-\sum_{(u,v)\in T_z}(2-|u|)(2-|v|).
+\]
+恰有一个坐标为零的数对不能属于 $T_z$，否则 $g$ 或 $g^{-1}$ 等于 $z^{-2}$，与 $z$ 交换。四个角的权重为 $1$，在 $r-\ell$ 中全部消去。中心的权重为 $4$，恰当 $z^2=1$ 时出现。所以
+\[
+ r-\ell=-2+3\,\mathbf{1}_{z^2=1}\ \in\ \{-2,1\}.
+\]
+
+\textbf{情形二：$g^2=1$。} 此时 $g\ne1$，$K=H$ 有两个元素。取 $u,v\in\mathbb Z/2\mathbb Z$ 定义同一个 $T_z$。右侧给 $r=4-|T_z|$。模 $2$ 的每种差都有两种取法，所以左侧每个数对权重为 $4$，得到 $\ell=8-4|T_z|$。又因为四个 $g^uzg^v$ 两两不同，$|T_z|$ 为 $0$ 或 $1$。故
+\[
+ r-\ell=-4+3|T_z|\ \in\ \{-4,-1\}.
+\]
+两种情形都给出 $|r-\ell|\ge1$。由 $a\le2$、$|B_k|\le2k$ 及式 (1)，
+\[
+ f_{2k}(G)\ \ge\ |\dd(B_k)|\ \ge\ \binom{k}{2}-2(k-1).
+\]
+取 $k=\lfloor n/2\rfloor$，右侧为 $n^2/8-O(n)$，即得第一类群的二次下界。
+
+\newpage
+\banner{证明 · 所有共轭类均有限}
+\head{四、让每对副本都扩大差值}
+设 $G$ 无限，且每个共轭类都有限。这类群称为 FC 群。给定有限 $A$，各 $x\in A$ 的中心化子指数等于 $x$ 的共轭类大小。它们的交 $C_G(A)$ 仍是有限指数子群，因而无限。
+
+$C_G(A)$ 内含无限阿贝尔子群 $K$。事实上，先选有限多个两两交换的元素。若它们已生成无限群，就已完成；否则它们的公共中心化子在 $C_G(A)$ 中仍有有限指数，故能从已生成的有限子群外再选一个元素。继续下去，便得到无限多个两两交换的元素。
+
+从 $\dd(A)>0$ 的有限集开始（必要时换为 $A^{-1}$）。令 $S=R(A)\cup L(A)$，$F=S^{-1}S$。从 $K$ 选无穷多个互异标签 $t_i$，分两种情况。
+
+\begin{itemize}
+\item 若 $K$ 中满足 $t^2=1$ 的元素无限，就从中任选这列标签。此时每个 $u=t_i t_j^{-1}$ 都满足 $u=u^{-1}$。
+\item 否则，交换群 $K$ 的平方同态有有限核和无限像。逐个选择 $t_i^2$，避开每个已选平方的有限个 $F$-平移，就能保证 $i\ne j$ 时 $(t_it_j^{-1})^2\notin F$。此时 $Su$ 与 $Su^{-1}$ 不交；若 $vu=wu^{-1}$，则 $u^2=v^{-1}w\in F$。
+\end{itemize}
+
+对有限模板 $st_i t_j^{-1}$（$s\in S$）再用第 2 页的齐性与分离论证。不同无序对产生的两组平移互不相交，也都和 $S$ 不交：假设重合，便可改变一个只出现一次的索引并用群消去律得到矛盾。对于同一无序对，两种方向的 $S$ 平移在第一种情况下完全相同，在第二种情况下不交。分别记 $\nu=1$ 或 $2$。
+
+置 $U_k=\{t_1,\dots,t_k\}$、$B=A U_k$。由于所有标签两两交换且与 $A$ 交换，
+\[
+ R(B)=R(A)\,U_kU_k^{-1},\qquad L(B)=L(A)\,U_kU_k^{-1}.
+\]
+上段的分离意味着这两式中的平移分别有 $1+\nu\binom{k}{2}$ 个互不相交的副本。因此
+\[
+ \dd(B)=\dd(A)\left(1+\nu\binom{k}{2}\right),\qquad |B|\le |A|k .
+\]
+取 $k=\lfloor n/|A|\rfloor$ 即得第二类群的二次下界。结合平凡上界 $f_n\le n^2$，定理得证。\hfill$\square$
+
+\textbf{统一下界。} 姊妹稿《群的左右商集失衡具有统一的有限见证》证明，每个无限不平衡群都可取 $|A|\le6$。于是 FC 情形有 $f_n\ge 1+\binom{\lfloor n/6\rfloor}{2}$（$n\ge6$）。结合第 3 页的下界，对一切无限不平衡群，共同成立 $\liminf_{n\to\infty} f_n(G)/n^2\ge1/72$。
+
+\head{使用了哪些在先结果}
+二次下界的推导只用群的基本性质和无限 Ramsey 定理。把「所有有限集均平衡」翻译成具体群的名称，使用 Herzog 等人的定理 7.4。该分类还列出七个有限例外，它们不影响这里的无限群结论。2026 年 11 月 26 日按题名、引文与左右商集差的不同表述检索，未找到覆盖此二次增长结论的在先公开证明。
+
+{\small Duvivier 等，\href{https://math.colgate.edu/~integers/aap8/aap8.pdf\#page=14}{Comparing Left and Right Quotient Sets in Groups}，\emph{Integers} 26A (2026), A8，第 5 问。\par
+M. Herzog、G. Kaplan、P. Longobardi、M. Maj，\href{https://doi.org/10.1007/s13366-013-0141-y}{Products of subsets of groups by their inverses}，\emph{Beiträge zur Algebra und Geometrie} 55 (2014), 311–346，定理 7.4。}
+\end{document}

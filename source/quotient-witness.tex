@@ -1,0 +1,129 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm,top=17mm,bottom=18mm]{geometry}
+\usepackage{fontspec,xeCJK,amsmath,amssymb,xcolor,hyperref}
+\setmainfont{TeX Gyre Pagella}
+\setCJKmainfont[BoldFont=Dengb.ttf]{Deng.ttf}
+\definecolor{ink}{HTML}{172F36}
+\definecolor{green}{HTML}{14655F}
+\definecolor{rulecol}{HTML}{BDD3D0}
+\hypersetup{colorlinks=true,urlcolor=green,pdftitle={群的左右商集失衡具有统一的有限见证},pdfauthor={BI1XLN and GPT-6.2 Astra}}
+\pagestyle{plain}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\abovedisplayskip}{7pt}
+\setlength{\belowdisplayskip}{7pt}
+\linespread{1.11}
+\newcommand{\head}[1]{\vspace*{2mm}{\color{green}\large\bfseries #1}\par}
+\newcommand{\banner}[1]{{\small\color{green}\bfseries 群论与数理逻辑\hfill #1}\par\vspace{-3pt}{\color{rulecol}\rule{\linewidth}{0.7pt}}\par}
+\newcommand{\R}{\mathrm R}
+\newcommand{\Lq}{\mathrm L}
+\newcommand{\Fin}{\mathcal F}
+\begin{document}\color{ink}
+\banner{研究笔记 · 2026 年 11 月 26 日}
+{\fontsize{23}{31}\selectfont\bfseries 群的左右商集失衡具有统一的有限见证}\par
+{\small BI1XLN \enspace 与 \enspace GPT-6.2 Astra}
+
+\head{问题与结论}
+对群 $G$ 的有限子集 $A$，记 $\R(A)=AA^{-1}=\{ab^{-1}:a,b\in A\}$、
+$\Lq(A)=A^{-1}A=\{a^{-1}b:a,b\in A\}$。若两者基数不同，就称 $A$ 为失衡见证。
+若群中每个有限子集的两个商集都等势，就称这个群平衡。
+
+\textbf{定理。} 存在与群无关的正整数 $N$，使每个不平衡群 $G$ 中都有一个至多含 $N$ 个元素的失衡见证。若 $G$ 无限，可以取 $N=6$，且六为最优。对全体群，第五节给出一个显式上界。因此，只需有限种带坐标的差图就能刻画全部不平衡群。
+
+Herzog 等人 [2] 已在 2014 年提出统一上界是否存在的问题，并证明若存在则至少为六。Duvivier 等人在 2025 年预印本的注记 3.4 后提出有限差图猜想 [1]。其量词允许在同一个 $G$ 中重新选取见证 $B$，无须 $B$ 包含在预先给定的失衡集合 $A$ 中。
+
+\head{一、用一个一阶句子刻画平衡群}
+采用乘法、逆元和单位元构成的群语言。考虑群的一阶句子
+\[
+  \chi:\qquad \forall x\,\forall y\ \bigl(xyx^{-1}=y\ \lor\ xyx^{-1}=y^{-1}\bigr).
+\]
+我们先证 $\chi$ 等价于对每个有限 $A$ 都有 $\R(A)=\Lq(A)$。若 $\chi$ 成立，对 $u=ab^{-1}\in\R(A)$ 有 $a^{-1}ua=b^{-1}a\in\Lq(A)$。这个共轭元是 $u$ 或 $u^{-1}$，而 $\Lq(A)$ 对取逆封闭，故 $u\in\Lq(A)$。将已得的包含关系应用于 $A^{-1}$，即得到反向包含。反过来，只要每个至多二元的集合的两个商集相等，对 $A=\{x,yx\}$ 就有
+\[
+ \{1,y,y^{-1}\}=\{1,x^{-1}yx,x^{-1}y^{-1}x\}.
+\]
+若 $y\ne1$，其共轭元 $x^{-1}yx$ 必等于 $y$ 或 $y^{-1}$。当 $y=1$ 时亦成立。以 $x^{-1}$ 代替 $x$，便得到 $\chi$。
+
+Herzog、Kaplan、Longobardi 与 Maj 的分类定理 [2] 表明，任意平衡群或为阿贝尔群，或为哈密顿 $2$-群，或与七个固定有限群 $H_1,\ldots,H_7$ 中的一个同构；反之，所列每个群都平衡。阿贝尔群满足 $\chi$。哈密顿 $2$-群具有形式 $Q_8\times E$，其中 $E$ 是任意秩的初等阿贝尔 $2$-群。由于 $Q_8$ 中每个元素的共轭元都是它自己或其逆元，而 $e=e^{-1}$ 对 $e\in E$ 成立，这些群也都满足 $\chi$。
+
+固定有限群 $H$，将其 $m$ 个元素编号，记乘法表为 $t(i,j)$。以下句子 $\mu_H$ 恰好刻画 $G\cong H$：
+\[
+ \exists h_1\cdots h_m\ 
+ \biggl[\ \bigwedge_{i<j}h_i\ne h_j\ \land\
+ \biggl(\forall g\,\bigvee_{i=1}^m g=h_i\biggr)\ \land\
+ \bigwedge_{1\le i,j\le m}h_i h_j=h_{t(i,j)}\ \biggr].
+\]
+因此 $\Phi=\chi\vee\mu_{H_1}\vee\cdots\vee\mu_{H_7}$ 是一个一阶句子，并且
+$G\models\Phi$ 当且仅当 $G$ 平衡。这里 $\chi$ 保证的是商集相等，有限例外则只需保证等势。
+
+\head{一个恰需六个元素的例子}
+在十二阶二面体群 $\langle r,s\mid r^6=s^2=1,\ srs=r^{-1}\rangle$ 中，把任一集合写成
+$A=\{r^x:x\in X\}\cup\{r^ys:y\in Y\}$，其中 $X,Y\subseteq\mathbb Z/6\mathbb Z$。
+左右商集中的旋转指标均为 $(X-X)\cup(Y-Y)$，反射指标分别为 $X+Y$ 和 $Y-X$。
+若 $|A|\le5$，则 $X,Y$ 中至少一个至多含两点，其负集是自身的平移，故
+$|X+Y|=|Y-X|$（取负也保持基数）。取 $X=Y=\{0,1,3\}$，则 $X-X$ 有六项，$X+X$ 有五项。
+于是这个六元集合的两个商集分别有 $11$ 和 $12$ 项，统一上界必定满足 $N\ge6$。同样的乘法公式适用于无限二面体群，只须把指标群改为 $\mathbb Z$。此时对相同的 $X=Y$，$X-X$ 有七项，$X+X$ 有六项，给出的商集大小是 $13$ 和 $14$。故即使限于无限群，也不能把见证大小降到五。
+
+\newpage
+\banner{统一见证上界与差图}
+\head{二、由紧致性得到统一上界}
+对每个 $n\ge1$，令 $\theta_n$ 表示“任取 $a_1,\ldots,a_n$，两个商表 $(a_i a_j^{-1})_{i,j}$ 和
+$(a_i^{-1}a_j)_{i,j}$ 所含的不同元素个数相等”。这是群语言的一阶句子。具体地，将一张表依次记为 $w_1,\ldots,w_{n^2}$，用下式表示它恰好含 $r$ 个不同元素：
+\[
+ E_r(w)=
+ \bigvee_{\substack{I\subseteq\{1,\ldots,n^2\}\\|I|=r}}
+ \biggl[\ \bigwedge_{\substack{i,j\in I\\i<j}}w_i\ne w_j\
+  \land\ \bigwedge_{k=1}^{n^2}\ \bigvee_{i\in I}w_k=w_i\ \biggr].
+\]
+于是，把两表分别代入 $E_r$ 并取合取，再对 $1\le r\le n^2$ 取析取，最后全称量化 $a_1,\ldots,a_n$，便得到 $\theta_n$。元组允许重复元素，故 $\theta_n$ 恰好表示每个大小至多为 $n$ 的子集都平衡。空集自动满足条件。特别地，$k\le n$ 时 $\theta_n$ 蕴含 $\theta_k$。
+
+若没有统一上界，则对每个 $n$ 都存在不平衡群 $G_n$ 满足 $\theta_n$。考虑一阶理论
+\[
+   T=\{\text{群公理}\}\ \cup\ \{\neg\Phi\}\ \cup\ \{\theta_n:n\ge1\}.
+\]
+$T$ 的每个有限片段都有模型。只要取 $n$ 不小于其中出现的全部指标，$G_n$ 就是一个模型。由一阶逻辑紧致性定理，全部 $T$ 也应有一个模型 $G$。因为 $G\models\theta_n$ 对每个 $n$ 成立，$G$ 的每个有限子集都平衡，因而 $G\models\Phi$。这与 $G\models\neg\Phi$ 矛盾。故定理中的 $N$ 存在。
+
+\head{三、从统一上界回到有限差图}
+给 $B=\{b_1,\ldots,b_n\}$ 编号。原文的差图 $D_B$ 的顶点是 $[n]^2$，当且仅当
+$b_i b_j^{-1}=b_k b_\ell^{-1}$ 时，从 $(i,j)$ 向 $(k,\ell)$ 连边。其连通分量就是右商表中的等价类。保留有序对坐标后，同一张图还决定左商表的等价类，因为
+\[
+  b_i^{-1}b_j=b_k^{-1}b_\ell\quad\Longleftrightarrow\quad
+  b_j b_\ell^{-1}=b_i b_k^{-1}.
+\]
+对 $n\le N$，可取的有标号边关系至多有 $\sum_{n=1}^{N}2^{n^4}$ 种。从中保留由失衡集合实现、且没有失衡真子集的类型，组成有限集 $\Fin$。每个不平衡群都含有一个大小至多 $N$ 的见证，取其极小失衡子集，即得到 $\Fin$ 中的类型。反过来，任何实现 $\Fin$ 中某个带坐标类型的群都失衡，因为两张商表的等价类数由该类型决定。忘去坐标，所得有限普通图族也满足原文要求的单向存在命题。反向地，任意有限的失衡见证图族也给出统一上界，取各图顶点数的平方根的最大值即可。$\square$
+
+\head{文献与范围}
+{\small
+[1] Duvivier 等，\textit{Comparing Left and Right Quotient Sets in Groups}，
+\href{https://arxiv.org/html/2509.00611v2#S3}{arXiv 第二版，§3}。
+\href{https://math.colgate.edu/~integers/aap8/aap8.pdf}{\textit{Integers} 26A (2026), A8，第 14 页}改列商集基数差的幅度与增长问题，没有保留该猜想。
+
+[2] M. Herzog、G. Kaplan、P. Longobardi、M. Maj，
+\href{https://doi.org/10.1007/s13366-013-0141-y}{\textit{Products of subsets of groups by their inverses}}，
+\textit{Beitr. Algebra Geom.} 55 (2014), 311–346，定理 7.4。
+其开放问题写作 $\mathcal P=\mathcal P_m$，详见 \href{https://api.zbmath.org/v1/document/6362499}{A. Abdollahi 的 zbMATH 评述，Zbl 1318.20030}。有限群的七个例外也列于 \href{https://arxiv.org/html/2509.04717v2#S1}{Mouli 与 Saldin，定理 1.1}。
+
+紧致性证明只给出存在性。以下两节给出独立的定量证明。截至本文日期，我们核对了论文版本、分类结果、zbMATH 评述及 OpenAlex 收录的施引论文，尚未检得对上述 2014 年问题给出肯定解答的在先证明。}
+\newpage
+\banner{六元见证与显式上界}
+\head{四、三个二元块的计数}
+记 $\delta(A)=|\R(A)|-|\Lq(A)|$，并取 $M=1024$。设 $z_0,z_1,z_2$ 从同一组 $M$ 个互异群元素中独立均匀抽取。每块有两个形式元素 $z_i b$，其中 $b$ 是预先指定的常数，允许随块的种类变化。两个元素来自不同块时，称它们的商为跨块商，支撑是相应的无序指标对。
+
+\textbf{分离引理。} 可以选到三个彼此不同的标签，使左右两侧各自的跨块商都与块内商分离，而且不同支撑的跨块商彼此分离。事实上，考虑一个需要排除的等式。不同的跨块支撑，其对称差中的一个指标在一侧恰好出现一次、另一侧不出现。跨块商与块内商比较，也总有这样的指标。固定另外两个标签，这个等式至多有一个解，因为 $z\mapsto uz^{\pm1}v$ 为单射。于是每个等式成立的概率至多是 $1/M$。
+
+每侧有三个跨块支撑，各有 $8$ 个跨块商项（包括两个取商次序），块内只有 $12$ 个商项。两侧共须排除至多 $2(3\cdot8^2+24\cdot12)=960$ 个等式，再加三个标签相等的事件。由于 $963/M<1$，总有符合要求的三元组。
+
+\textbf{大共轭类。} 若某个 $g$ 的共轭类至少有 $2M$ 个元素，可选 $M$ 个标签，使共轭元 $c_i=z_i g z_i^{-1}$ 的各对 $\{c_i,c_i^{-1}\}$ 两两不交，且 $a=|\{g,g^{-1}\}|\ge1$。
+用分离引理挑出三个块 $B_i=z_i\{1,g\}$。设 $d_{ij}$ 是支撑 $\{i,j\}$ 的不同右、左跨块商的个数之差。任意两个块的块内右商为 $1,c_i^{\pm1},c_j^{\pm1}$，左商为 $1,g^{\pm1}$，两边相差 $a$。如果任一个两块并集失衡，便有四元以内的见证。否则 $d_{ij}=-a$ 对三个指标对都成立。三个块的块内商相差 $2a$，其并集因而满足 $\delta=2a-3a=-a\ne0$。
+
+\textbf{小共轭类。} 设 $G$ 不平衡，每个共轭类的大小都小于 $2M$，且 $G$ 无限或 $|G|>T=M(2M)^{12}=2^{142}$。由第一节，可选 $x,g$ 使 $c=xgx^{-1}\notin\{g,g^{-1}\}$。每个元素的中心化指数至多 $2M$。在 $x,g$ 的共同中心化子中构造一个大小至少 $M$ 的阿贝尔子群 $H$。从平凡群起步，当目前的子群小于 $M$ 时，从 $x,g$ 及已选生成元的共同中心化子中选一个子群外的元素。每个新元素都使当前子群仍为阿贝尔群且大小至少翻倍，因此至多选十次。构造中公共中心化子的指数至多 $(2M)^{12}$，其大小超过 $M$，故总能继续。
+
+从 $H$ 取 $M$ 个标签。令 $Q=\{1,g\}$、$P=xQ$，用引理得到三个块 $z_0P,z_1Q,z_2Q$。两个 $Q$ 块之间的全部跨块商在左右两侧相同，因为标签和 $g$ 彼此交换。$P$ 块与任一 $Q$ 块合并时，块内右商为 $\{1,c^{\pm1},g^{\pm1}\}$，左商为 $\{1,g^{\pm1}\}$，相差 $a=|\{g,g^{-1}\}|$。若两个这样的两块并集都平衡，它们各自的跨块商差均等于 $-a$。三个块合并后，块内贡献仍为 $a$，所以总差为 $a-2a=-a\ne0$。这就给出了至多六元的见证。
+
+\head{五、全体群与无限群的界}
+以上论证给出完全显式的结论。所有无限不平衡群以及每个阶大于 $2^{142}$ 的有限不平衡群，都有大小至多六的失衡见证。剩下的群若不平衡，整个群的大小就界住任何见证的大小。因此全体群的统一上界可取 $N=2^{142}$。第一页的无限二面体群表明，无限群的最优值恰为六。全体群的最优值仍待确定；要检验它是否也为六，只需检查阶至多 $2^{142}$ 的有限群。$\square$
+
+\head{正式刊文问题 4 的推论}
+对固定整数 $c\ge0$，记 $\theta_{n,c}$ 为“每个至多 $n$ 元子集满足 $|\R(A)|-|\Lq(A)|\le c$”。这是第二节计数公式的直接变体。利用两位作者同日所作《无限群的左右商集差》中的增长定理（每个无限不平衡群的基数差无界），可知对所有 $n$ 满足 $\theta_{n,c}$ 的群恰由平衡群和有限多个有限群同构类型组成。否则，取 $\neg\Phi$、所有 $\theta_{n,c}$ 和对每个 $m$ 的群阶下界 $|G|\ge m$，由紧致性得到基数差有界的无限不平衡群，矛盾。
+
+这些额外的有限类型可由 $c$ 统一算出。紧致性给出某对 $k,m$，使群公理蕴含 $\theta_{k,c}\Rightarrow(\Phi\vee |G|\le m)$。交错枚举所有 $k,m$ 的形式证明，由一阶完备性必会停止。再枚举至多 $m$ 阶的所有群乘法表，穷举子集、去掉平衡群与同构重复，即得清单。对实数 $c\ge0$ 取 $\lfloor c\rfloor$ 即可。此算法没有实用的运行时间保证。
+\end{document}

@@ -1,0 +1,114 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[top=17mm,bottom=19mm,left=22mm,right=22mm]{geometry}
+\usepackage{fontspec,xeCJK,amsmath,amssymb,xcolor,hyperref}
+\setmainfont{TeX Gyre Pagella}\setCJKmainfont[BoldFont=Dengb.ttf]{Deng.ttf}
+\definecolor{ink}{HTML}{182C36}\definecolor{accent}{HTML}{434477}
+\hypersetup{colorlinks=true,urlcolor=accent,pdftitle={两族系数矩阵的对数},pdfauthor={BI1XLN and GPT-6.2 Astra}}
+\setlength{\parindent}{0pt}\setlength{\parskip}{6pt}\linespread{1.14}
+\newcommand{\head}[1]{\par\vspace{2pt}{\large\bfseries\color{accent}#1}\par}
+\newcommand{\banner}[1]{{\small\color{accent}\bfseries 形式幂级数与矩阵\hfill #1}\par\vspace{-3pt}{\color{accent!35}\rule{\linewidth}{.7pt}}\par}
+\begin{document}\color{ink}
+\banner{研究笔记 · 2026 年 11 月 26 日}
+{\fontsize{24}{31}\selectfont\bfseries 两族系数矩阵的对数}\par
+{\large Cigler 猜想 2 与猜想 3 的自包含推导}\par
+{\small BI1XLN \enspace 与 \enspace GPT-6.2 Astra}
+
+\head{为什么取对数之后仍有规律？}
+对角线全为 $1$ 的有限下三角矩阵 $A$，其对数是有限和
+\[
+ \log A=(A-I)-\tfrac12(A-I)^2+\tfrac13(A-I)^3-\cdots .
+\]
+一般来说，高次幂会混合许多不同副对角线。Cigler 在 2014 年的手稿中，对两族正交多项式的系数矩阵猜测，这些混合项最后遵循统一公式。本文在特征零下讨论任意有限阶；也可按元素理解为相容的无限下三角矩阵。
+
+\head{第一族：含参数 $m$ 的矩阵}
+设 $r\ge2$、$m\ge0$ 为整数，$s$ 为参数。对非负整数 $j$ 定义
+\[
+ w_j=s\left\lfloor\frac j2\right\rfloor
+       \left(r\left\lceil\frac j2\right\rceil-1\right),\qquad
+ W_{n,k}=\prod_{i=1}^k w_{n+2i}.
+\]
+设 $z=m+n$，$(b)_k=b(b+1)\cdots(b+k-1)$。将原文式 (2.1) 的第 $n+2k$ 行、第 $n$ 列系数重写，得到
+\[
+ A_{n+2k,n}=\frac{W_{n,k}}{k!(z+k)_k}.
+\]
+行、列之差为奇数的元素全为零，主对角为 $1$。对 $k\ge1$，猜想 2 的结论是
+\[
+ \boxed{\displaystyle(\log A)_{n+2k,n}=
+ \frac{\gamma_k}{(z+1)_{k-1}}\ A_{n+2k,n}.} \tag{1}
+\]
+其中 $\gamma_1,\gamma_2,\ldots=1,-1,3,-14,80,-468,\ldots$，与矩阵阶数及 $r,m,n,s$ 无关。举例而言，第二条非零副对角线上的元素要乘 $-1/(m+n+1)$；第三条要乘 $3/[(m+n+1)(m+n+2)]$。
+
+\head{换一组基，把矩阵认成代入算子}
+暂取 $m\ge1$、$s\ne0$。对每个奇偶类分别选非零 $d_n$，使
+$d_{n+2}/d_n=(m+n)(m+n+1)/w_{n+2}$。令 $D=\operatorname{diag}(d_n)$，由相消得
+\[
+ (DAD^{-1})_{n+2k,n}
+ =\frac{(z)_{2k}}{k!(z+k)_k}=\frac{(z)_k}{k!}.
+\]
+这正是 $f(x)^z$ 的 $x^{z+2k}$ 系数，其中 $f(x)=x/(1-x^2)$。所以在基 $x^m,x^{m+1},\ldots$ 上，共轭后的矩阵表示代入算子 $T:h(x)\mapsto h(f(x))$；取有限阶等价于丢掉指定次数以上的项。
+
+\newpage
+\banner{第一族 · 代入算子的对数}
+\head{对数为何是导子}
+在 $\mathbb Q[[x]]$ 上，$T-I$ 每次把正次数至少提高 $2$，且消灭常数。可以逐系数定义
+\[
+ T^u=\sum_{j\ge0}\binom uj (T-I)^j .
+\]
+在任何固定截断阶上，这个式子关于 $u$ 是多项式。当 $u$ 为非负整数时，它等于 $T$ 的通常迭代，故 $T^u(ab)=(T^ua)(T^ub)$。两边逐系数都是 $u$ 的多项式，在无穷多个整数处相同，因而恒等。在 $u=0$ 处对两边求导，利用
+$\left.\frac{d}{du}\binom uj\right|_{u=0}=(-1)^{j-1}/j$（$j\ge1$），即得
+\[
+ L(ab)=L(a)b+aL(b),\qquad L=\log T .
+\]
+置 $V(x)=L(x)$。上述乘法法则给出 $L(x^z)=z x^{z-1}V(x)$。$f$ 为奇级数，$V$ 的最低次数至少为 $3$，故可定义
+\[
+ V(x)=\sum_{k\ge1}\frac{\gamma_k}{k!}x^{2k+1}.
+\]
+于是 $(\log(DAD^{-1}))_{n+2k,n}=z\gamma_k/k!$。换回原来的基得到
+\[
+ (\log A)_{n+2k,n}
+ =\frac{W_{n,k}}{(z)_{2k}}\frac{z\gamma_k}{k!}
+ =\frac{\gamma_k}{(z+1)_{k-1}}\,A_{n+2k,n}.
+\]
+固定 $n,k$ 后，两边均是关于 $m$ 的有理函数，且在 $m=0$ 时原式的分母都非零，于是恒等式在 $m=0$ 也成立。若 $s=0$，原矩阵为单位矩阵，结论直接成立。
+
+\head{普适整数从哪里来}
+由于 $T-I$ 每次至少提高两次，在计算 $[x^{2k+1}]L(x)$ 时，对数和中只用到 $j\le k$。$(T-I)^j x$ 具有整数系数，而每个 $j\le k$ 都整除 $k!$，故 $\gamma_k$ 为整数。特别地 $f(x)=x+x^3+\cdots$ 给出 $\gamma_1=1$。
+
+设 $R(t)=\sum_{k\ge1}\gamma_k t^k/k!$，于是 $V(x)=xR(x^2)$。$L$ 和 $T$ 交换；由连续性及已证的乘法法则，$L(f)=f'V$，而 $T(V)=V(f)$。代入 $f=x/(1-x^2)$ 并消去 $x$，得到
+\[
+ \boxed{\displaystyle R(t)=\frac{1-t}{1+t}\,
+ R\!\left(\frac{t}{(1-t)^2}\right).}
+\]
+这也推出了 Cigler 在猜想 2 后记下的函数方程。它在规定一次项系数后唯一确定 $R$：若两个解的差以 $t^j$ 开头（$j\ge2$），比较下一次项会强迫其首项系数乘 $2(j-1)$ 为零。
+
+\newpage
+\banner{第二族 · 一个加权移位与 $q$ 指数}
+\head{第二族：每一条副对角线只有一个乘数}
+以 $q$ 为不定元，记 $Q=q^r$、$t=Q^{-1}$、$[j]_t=(1-t^j)/(1-t)$ 和 $[j]_t!=\prod_{i=1}^j[i]_t$。在基向量 $e_n$ 上定义
+\[
+ S e_n=s\left[\left\lfloor\frac{n+2}{2}\right\rfloor\right]_Q
+ \left[r\left\lceil\frac{n+2}{2}\right\rceil-1\right]_q e_{n+2}.
+\]
+在任何有限截断中，$S$ 幂零，$S^k$ 的非零元素只可能落在第 $2k$ 条副对角线上。用原文式 (3.1) 的高斯二项式展开整理系数，得到第二族矩阵
+\[
+ A_q=E_t(S),\qquad E_t(v)=\sum_{k\ge0}\frac{v^k}{[k]_t!}.
+\]
+具体地，$S^k e_n$ 含有 $k$ 个连续的 $Q$-整数权因子。将其除以 $[k]_Q!$ 得原式的高斯二项式；又因 $1/[k]_t!=Q^{\binom k2}/[k]_Q!$，额外的 $Q$ 幂也正好一致。
+
+\head{证明猜想 3}
+直接比较系数得 $E_t(tv)=(1-(1-t)v)E_t(v)$。若 $\log E_t(v)=\sum_{k\ge1}g_kv^k$，在形式幂级数环中取对数，得到
+\[
+ (t^k-1)g_k=-\frac{(1-t)^k}{k},
+ \qquad g_k=\frac{(1-t)^k}{k(1-t^k)}.
+\]
+把 $v$ 换成 $S$。由于第 $2k$ 条副对角线仅收到 $S^k$ 的贡献，两个矩阵在那里相差的倍数就是 $g_k[k]_t!$。约去 $1-t^k$ 后，
+\[
+ \boxed{\displaystyle
+ (\log A_q)_{n+2k,n}=
+ \frac{1}{k}\prod_{j=1}^{k-1}(1-q^{-rj})\, (A_q)_{n+2k,n}\qquad(k\ge1).} 
+\]
+$\log A_q$ 的主对角为零。上述等式首先在 $\mathbb Q(q,s)$ 中成立，再由恒等式在两侧有定义的参数值处特化；例如 $q=1$ 时所有 $k\ge2$ 的乘数为零。
+
+\head{在先工作}
+\href{https://homepage.univie.ac.at/johann.cigler/preprints/q-pol.pdf}{Cigler 原稿}第 9、12 页分别列出猜想 2、3。\href{https://oeis.org/A027614/a027614.tex}{Adler 的 1997 年说明}已记录相应整数及相关矩阵对数的观察。代入矩阵对数与导子的关系有一般理论，见 \href{https://arxiv.org/abs/1009.5518}{Aschenbrenner，定理 4.3}；$q$ 指数的对数系数也已见于 \href{https://arxiv.org/abs/math-ph/0305003}{Quesne 的论文}。本稿给出它们在 Cigler 两个具体矩阵上的显式演绎，不主张这些基础恒等式的优先权。
+\end{document}
